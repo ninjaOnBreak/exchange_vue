@@ -29,10 +29,37 @@
       </div>
       <p class="rate-info">{{ rateInfo }}</p>
     </div>
+    <div
+      id="target"
+      class="control-section; position:relative"
+      style="height:350px;"
+    >
+      <!-- Render Button to open the Dialog -->
+      <ejs-button id="dlgbtn" v-on:click.native="btnClick">Open</ejs-button>
+      <!-- Render Dialog -->
+      <ejs-dialog
+        ref="footerDialog"
+        :header="header"
+        :target="target"
+        :width="width"
+        :buttons="buttons"
+        :content="content"
+        :open="dlgOpen"
+        :close="dlgClose"
+      >
+      </ejs-dialog>
+    </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue';
+import { DialogPlugin } from '@syncfusion/ej2-vue-popups';
+import { ButtonPlugin } from '@syncfusion/ej2-vue-buttons';
+
+Vue.use(DialogPlugin);
+Vue.use(ButtonPlugin);
+
 export default {
   data() {
     return {
@@ -42,11 +69,19 @@ export default {
       inputOne: '1',
       inputTwo: '',
       rateInfo: '',
-    };
-  },
 
-  watch: {
-    inputOne() {},
+      target: '#target',
+      width: '335px',
+      header: 'Dialog',
+      content: 'This is a Dialog with button and primary button.',
+      buttons: [
+        {
+          click: this.dlgButtonClick,
+          buttonModel: { content: 'OK', isPrimary: true },
+        },
+        { click: this.dlgButtonClick, buttonModel: { content: 'Cancel' } },
+      ],
+    };
   },
 
   computed: {
@@ -60,8 +95,9 @@ export default {
       this.axios.get(this.apiLink).then((result) => {
         console.log(result);
         console.log(this.inputOne);
-        console.log(this.rate);
+
         this.rate = result.data.rates.PLN;
+        console.log(this.rate);
 
         this.inputTwo = (
           parseFloat(this.rate) * parseFloat(this.inputOne)
@@ -77,9 +113,20 @@ export default {
       const temp = this.currencyOne;
       this.currencyOne = this.currencyTwo;
       this.currencyTwo = temp;
-      console.log(this.currencyOne);
-      console.log(this.currencyTwo);
       this.getCurrency();
+    },
+
+    btnClick: function() {
+      this.$refs.footerDialog.show();
+    },
+    dlgClose: function() {
+      document.getElementById('dlgbtn').style.display = '';
+    },
+    dlgOpen: function() {
+      document.getElementById('dlgbtn').style.display = 'none';
+    },
+    dlgButtonClick: function() {
+      this.$refs.footerDialog.hide();
     },
   },
 };
@@ -87,6 +134,9 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-vue-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-vue-popups/styles/material.css';
 
 :root {
   --font: Roboto, sans-serif;

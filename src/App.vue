@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
+  <div id="app-exchange">
     <div class="wrapper">
       <h1>Exchange Rate App</h1>
       <p>Sprawdź aktualne kursy walut!</p>
 
       <div class="converter-body">
-        <div class="section-left">
+        <div class="currency-left">
           <input type="number" v-model="inputOne" :input="getCurrency()" />
           <select v-model="currencyOne" :onchange="getCurrency()">
             <option value="PLN">PLN</option>
@@ -13,40 +13,54 @@
             <option value="GBP">GBP</option>
             <option value="EUR">EUR</option>
             <option value="CHF">CHF</option>
+            <option value="JPY">JPY</option>
+            <option value="CNY">CNY</option>
           </select>
         </div>
-        <button class="swap" @click="swapCurrency">SWAP</button>
-        <div class="section-right">
+        <button class="swap" @click="swapCurrency">
+          <box-icon
+            name="transfer-alt"
+            color="#ffffff"
+            size="38px"
+            animation="tada-hover"
+          ></box-icon>
+        </button>
+        <div class="currency-right">
           <input type="number" :value="inputTwo" disabled />
-          <select v-model="currencyTwo" disabled>
+          <select v-model="currencyTwo">
             <option value="PLN" selected>PLN</option>
             <option value="USD">USD</option>
             <option value="GBP">GBP</option>
             <option value="EUR">EUR</option>
             <option value="CHF">CHF</option>
+            <option value="JPY">JPY</option>
+            <option value="CNY">CNY</option>
           </select>
         </div>
       </div>
       <p class="rate-info">{{ rateInfo }}</p>
     </div>
+    <currency-table></currency-table>
   </div>
 </template>
 
 <script>
+import CurrencyTable from './components/CurrencyTable.vue';
+
 export default {
+  name: 'CurrencyExchangeVue',
+  components: {
+    CurrencyTable,
+  },
   data() {
     return {
       rate: '',
-      currencyOne: 'USD',
+      currencyOne: 'EUR',
       currencyTwo: 'PLN',
       inputOne: '1',
       inputTwo: '',
       rateInfo: '',
     };
-  },
-
-  watch: {
-    inputOne() {},
   },
 
   computed: {
@@ -57,11 +71,9 @@ export default {
 
   methods: {
     getCurrency() {
+      if (this.currencyOne === this.currencyTwo) return (this.inputTwo = 1);
       this.axios.get(this.apiLink).then((result) => {
-        console.log(result);
-        console.log(this.inputOne);
-        console.log(this.rate);
-        this.rate = result.data.rates.PLN;
+        this.rate = result.data.rates[`${this.currencyTwo}`];
 
         this.inputTwo = (
           parseFloat(this.rate) * parseFloat(this.inputOne)
@@ -77,8 +89,6 @@ export default {
       const temp = this.currencyOne;
       this.currencyOne = this.currencyTwo;
       this.currencyTwo = temp;
-      console.log(this.currencyOne);
-      console.log(this.currencyTwo);
       this.getCurrency();
     },
   },
@@ -98,7 +108,7 @@ export default {
   margin: 0;
 }
 
-#app {
+#app-exchange {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,7 +127,8 @@ export default {
 
   .wrapper {
     padding: 50px;
-    width: 800px;
+    width: 50vw;
+    margin: auto 20px;
     background-image: linear-gradient(#3f4b59, #333d46);
     color: #fff;
     text-align: center;
@@ -146,8 +157,8 @@ export default {
       justify-content: center;
       align-items: center;
 
-      .section-left,
-      .section-right {
+      .currency-left,
+      .currency-right {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -186,18 +197,17 @@ export default {
       .swap {
         align-self: flex-end;
         margin: 5px;
-        padding: 5px 50px;
-        background-image: linear-gradient(45deg, #2b89e7, #11e763);
-        font-size: 30px;
+        padding: 6px 50px 4px;
+        background-image: linear-gradient(45deg, #c35e00, #6d6d6d);
         border: none;
-        border-radius: 25px;
+        border-radius: 15px;
         color: #fff;
         cursor: pointer;
       }
 
       .swap:focus {
         outline: none;
-        background-image: linear-gradient(45deg, #317fcc, #1fc06a);
+        background-image: linear-gradient(45deg, #aa5200, #1fc06a);
       }
     }
   }

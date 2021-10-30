@@ -1,14 +1,14 @@
 {
   "name": "currency_exchange_vue",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Simple currency exchange calculator integrated with The Frankfurter API (rates published by the European Central Bank).",
-  "main": "index.js",
+  "main": "./src/main.js",
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack-dev-server --mode development"
   },
   "keywords": [],
-  "author": "",
+  "author": "ninjaOnBreak",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.23.0",

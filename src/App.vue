@@ -48,7 +48,7 @@
 import CurrencyTable from './components/CurrencyTable.vue';
 
 export default {
-  name: 'CurrencyExchangeVue',
+  name: 'AppExchange',
   components: {
     CurrencyTable,
   },

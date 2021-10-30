@@ -4,7 +4,7 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import 'boxicons';
 
-import store from './store';
+import store from './store/index.js';
 
 Vue.use(VueAxios, axios);
 

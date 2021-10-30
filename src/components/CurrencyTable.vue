@@ -1,14 +1,47 @@
 <template>
   <div id="currency-table">
     <div class="table-wrapper">
-      <p class="rate-info">EURUSD {{ EURUSD }}</p>
-      <p class="rate-info">USDJPY {{ USDJPY }}</p>
-      <p class="rate-info">GBPUSD {{ GBPUSD }}</p>
-      <p class="rate-info">CNYUSD {{ CNYUSD }}</p>
-      <p class="rate-info">USDPLN {{ USDPLN }}</p>
-      <p class="rate-info">EURPLN {{ EURPLN }}</p>
-      <p class="rate-info">CHFPLN {{ CHFPLN }}</p>
-      <p class="rate-info">GBPPLN {{ GBPPLN }}</p>
+      <p>Najważniejsze kursy</p>
+      <p class="rate-info">
+        EURUSD
+        <box-icon name="trending-down" color="#ff0000" size="32px"></box-icon>
+        {{ EURUSD }}
+      </p>
+      <p class="rate-info">
+        USDJPY
+        <box-icon name="trending-up" color="#00ff00" size="32px"></box-icon>
+        {{ USDJPY }}
+      </p>
+      <p class="rate-info">
+        GBPUSD
+        <box-icon name="trending-down" color="#ff0000" size="32px"></box-icon>
+        {{ GBPUSD }}
+      </p>
+      <p class="rate-info">
+        CNYUSD
+        <box-icon name="trending-up" color="#00ff00" size="32px"></box-icon>
+        {{ CNYUSD }}
+      </p>
+      <p class="rate-info">
+        USDPLN
+        <box-icon name="trending-down" color="#ff0000" size="32px"></box-icon>
+        {{ USDPLN }}
+      </p>
+      <p class="rate-info">
+        EURPLN
+        <box-icon name="trending-up" color="#00ff00" size="32px"></box-icon>
+        {{ EURPLN }}
+      </p>
+      <p class="rate-info">
+        CHFPLN
+        <box-icon name="trending-down" color="#ff0000" size="32px"></box-icon>
+        {{ CHFPLN }}
+      </p>
+      <p class="rate-info">
+        GBPPLN
+        <box-icon name="trending-up" color="#00ff00" size="32px"></box-icon>
+        {{ GBPPLN }}
+      </p>
     </div>
   </div>
 </template>
@@ -48,8 +81,6 @@ export default {
       return this.$store.getters.fixedGBPPLN;
     },
   },
-
-  methods: {},
 
   mounted() {
     this.$store.dispatch('getEURUSD');
@@ -111,15 +142,21 @@ export default {
     }
 
     p {
-      margin: 30px 0;
-      font-size: 26px;
-      font-weight: 200;
+      // margin: 40px 0;
+      font-size: 30px;
+      font-weight: 400;
     }
 
-    // .rate-info {
-    //   margin-top: 30px;
-    //   margin-bottom: 0;
-    // }
+    .rate-info {
+      font-size: 28px;
+      margin: 40px 0;
+      font-size: 26px;
+      font-weight: 200;
+
+      box-icon {
+        vertical-align: bottom;
+      }
+    }
 
     .converter-body {
       display: flex;

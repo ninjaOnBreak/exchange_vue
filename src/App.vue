@@ -1,8 +1,8 @@
 <template>
   <div id="app-exchange">
     <div class="wrapper">
-      <h1>Exchange Rate App</h1>
-      <p>Sprawdź aktualne kursy walut!</p>
+      <h1>Currency Exchange Calculator</h1>
+      <p>Choose currency and enter amount!</p>
 
       <div class="converter-body">
         <div class="currency-left">
@@ -106,8 +106,11 @@ export default {
 
 * {
   margin: 0;
+  padding: 0;
 }
+</style>
 
+<style lang="scss" scoped>
 #app-exchange {
   display: flex;
   justify-content: center;
@@ -123,7 +126,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #29303b;
+  // background-color: #29303b;
 
   .wrapper {
     padding: 50px;

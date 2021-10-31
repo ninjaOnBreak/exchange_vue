@@ -13,5 +13,3 @@ export default new Vuex.Store({
     CurrencyModule,
   },
 });
-
-// export default store;

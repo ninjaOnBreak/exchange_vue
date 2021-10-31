@@ -47,8 +47,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
   computed: {
     EURUSD() {
@@ -56,7 +54,7 @@ export default {
     },
 
     USDJPY() {
-      return this.$store.getters.fixedUSDJPY;
+      return this.$store.getters['CurrencyModule/fixedUSDJPY'];
     },
 
     GBPUSD() {
@@ -84,13 +82,9 @@ export default {
     },
   },
 
-  // methods: {
-  //   ...mapActions(['getEURUSD']),
-  // },
-
   mounted() {
     this.$store.dispatch('CurrencyModule/getEURUSD');
-    this.$store.dispatch('getUSDJPY');
+    this.$store.dispatch('CurrencyModule/getUSDJPY');
     this.$store.dispatch('getGBPUSD');
     this.$store.dispatch('getCNYUSD');
     this.$store.dispatch('getUSDPLN');

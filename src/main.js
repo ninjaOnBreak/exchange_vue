@@ -4,8 +4,6 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import 'boxicons';
 
-import CurrencyTable from './components/CurrencyTable.vue';
-
 import store from './store';
 
 Vue.use(VueAxios, axios);
@@ -15,13 +13,14 @@ new Vue({
   store,
 }).$mount('#app');
 
-export default {
-  install(Vue, { options }) {
-    if (!options || !options.store) {
-      throw new Error('Please initialise plugin with a Vuex store.');
-    }
-    options.store.registerModule('CurrencyModule', store);
+// export default {
+//   install(Vue, { options }) {
+//     if (!options || !options.store) {
+//       throw new Error('Please initialise plugin with a Vuex store.');
+//     }
+//     console.log('this works');
+//     options.store.registerModule('CurrencyModule', store);
 
-    Vue.component('currency-table', CurrencyTable);
-  },
-};
+//     Vue.component('currency-table', CurrencyTable);
+//   },
+// };
